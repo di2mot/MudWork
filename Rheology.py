@@ -35,5 +35,5 @@ class Rheology:
 
     def reo(self):
         PV = self.rpm_600 - self.rpm_300
-        YV = (PV - self.rpm_300) * self.__coef
+        YV = (self.rpm_300 - PV) * self.__coef
         return PV, YV
