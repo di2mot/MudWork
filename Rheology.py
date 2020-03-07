@@ -5,7 +5,7 @@
 class Rheology:
     '''For rheology  calculation'''
 
-    def __init__(self, rpm_600, *args, **kwargs):
+    def __init__(self):
         # __coef  - conversion factor
         # __coef  - коэфициент перевода единиц
         self.__coef = 0.48
