@@ -1,9 +1,11 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import Rheology
-import matplotlib.pyplot as plt
-from matplotlib import ticker
-import numpy as np
-import math
-from collections import OrderedDict
+from plot import logplot
+import colorama
+from colorama import Fore, Back, Style
+
 
 
 def reo(_fann, model):
@@ -43,7 +45,7 @@ def test():
     # reo_res = reo(_fann, model)
     # beautyTable(reo_res)
 
-    lineplot(_fann)
+    logplot(_fann)
     stop()
 
 
@@ -75,7 +77,7 @@ def work():
             beautyTable(reo_res)
 
             plot_type = 'log'
-            lineplot(_fann, plot_type, tile[model])
+            logplot(_fann, tile[model])
             stop()
             break
 
@@ -95,79 +97,8 @@ def stop():
         return exit()
 
 
-def lineplot(data, plot_type = 'log', title="График"):
-
-    x_data = []
-    y_data = []
-    x_label = []
-    y_label = []
-
-    # Create the plot object
-    _, ax = plt.subplots(figsize=(10,4))
-
-    # сортируем словарь в обратном порядке
-    sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
-
-    # Создаём кортеж для данных и кортеж для обозначений
-    for x in sorted_dict:
-        x_label.append(str(x))
-        #x_data.append(math.log10(int(x)))
-        x_data.append(int(x))
-
-    # Создаём кортеж для данных и кортеж для обозначений
-    for x in sorted_dict:
-        y_label.append(str(sorted_dict[x]))
-        #y_data.append(math.log10(sorted_dict[x]))
-        y_data.append(sorted_dict[x])
-
-    print(x_data, y_data, x_label, y_label)
-    # Plot the best fit line, set the linewidth (lw), color and
-    # transparency (alpha) of the line
-
-
-    # Label the axes and provide a title
-    # ax.loglog()
-
-
-
-    #
-    # ax.set_title(title)
-    # ax.set_xlabel('prm')
-    # ax.set_ylabel('Углы')
-    # ax.set_xticklabels(x_label)
-    # ax.set_yticklabels(y_label)
-
-
-
-    ax.plot(x_data, y_data, color='#539caf', alpha=1)
-    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%d'))
-
-    ax.set_title(title)
-    ax.set_xlabel('prm')
-    ax.set_ylabel('углы')
-    ax.set_yscale('log')
-    ax.set_xscale('log')
-    # ax.set_xticks(x_data)
-    # ax.set_yticks(y_data)
-    # ax.set_xticklabels(x_label)
-    # ax.set_yticklabels(y_label)
-
-
-
-    # plt.xscale('log')
-    # plt.yscale('log')
-    # plt.yticks(y_data, y_label)
-    # plt.xticks(x_data, x_label)
-
-    ax.grid(True)
-
-
-
-    plt.grid(True)
-    plt.show()
-
-
 def main():
+    colorama.init()
     '''
     Здесь находится логика отвечающая за взаимодействие в "программе"
 Писутствует два варианта, для тестирования и для непосредственного
@@ -177,16 +108,16 @@ def main():
 Для остановки работы и вохода "s"/"0"
     '''
     print()
-    print('\t _     _             |¯|  |¯|      |¯|                   |¯|      ')
-    print('\t| \   / |  _   _   __| |  | |      | |  ______   _____   | |___   ')
-    print('\t|  \ /  | | | | | |    |  | |  /\  | | |  __  | |  __ \  |  __ \  ')
-    print('\t|   V   | | | | | | || |  | \ /  \ / | | |  | | | |__) | | |__) | ')
-    print('\t| |\ /| | | |_| | | || |   \ V /\ V /  | |__| | |  _  /  |  _  /  ')
-    print('\t|_| V |_| |_____| |____|    \_/  \_/   |______| |_| \__\ |_| \__\ ')
+    print(Fore.RED + '\n\t _     _             |¯|  |¯|      |¯|                   |¯|      ')
+    print(Fore.RED +'\t| \   / |  _   _   __| |  | |      | |  ______   _____   | |___   ')
+    print(Fore.RED +'\t|  \ /  | | | | | |    |  | |  /\  | | |  __  | |  __ \  |  __ \  ')
+    print(Fore.RED +'\t|   V   | | | | | | || |  | \ /  \ / | | |  | | | |__) | | |__) | ')
+    print(Fore.RED +'\t| |\ /| | | |_| | | || |   \ V /\ V /  | |__| | |  _  /  |  _  /  ')
+    print(Fore.RED +'\t|_| V |_| |_____| |____|    \_/  \_/   |______| |_| \__\ |_| \__\ ')
 
-
+    colorama.init()
     while True:
-        print('\n\tДля выбора режима введите одну из цыфр:\n \
+        print(Fore.GREEN +'\n\tДля выбора режима введите одну из цыфр:\n \
 \n\t1 - [Test] Запуск тестово функции.\
 \n\t2 - [Work] Запуск рабочй модели.\
 \n\t0 - [Exit] Выход из приложения.')

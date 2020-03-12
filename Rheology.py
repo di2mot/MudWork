@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import math
-import numpy
+
 
 
 class Rheology:
