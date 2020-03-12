@@ -13,21 +13,21 @@ class Rheology:
         # __coef  - коэфициент перевода единиц
         self.__coef = 0.48
         # fann600 - при 600 оборотах
-        self.rpm_600 = kwargs['600 prm']
+        self.rpm_600 = kwargs['600']
         # fann300 - при 300 оборотах
-        self.rpm_300 = kwargs['300 prm']
+        self.rpm_300 = kwargs['300']
         # fann200 - при 200 оборотах
-        self.rpm_200 = kwargs['200 prm']
+        self.rpm_200 = kwargs['200']
         # fann100 - при 100 оборотах
-        self.rpm_100 = kwargs['100 prm']
+        self.rpm_100 = kwargs['100']
         # fann60 - при 60 оборотах (не использую)
         # self.rpm_60 = kwargs['60 prm']
         # # fann30 - при 30 оборотах (не использую)
         # self.rpm_30 = kwargs['30 prm']
         # fann6 - при 6 оборотах
-        self.rpm_6 = kwargs['6 prm']
+        self.rpm_6 = kwargs['6']
         # fann3 - при 3 оборотах
-        self.rpm_3 = kwargs['3 prm']
+        self.rpm_3 = kwargs['3']
 
     def sns_1(self, sns_10s, sns_10m):
         ''' For SNS  calculation'''
@@ -35,20 +35,20 @@ class Rheology:
 
     def reo(self, model='hb'):
         ''' Type of models:
-Bingham Plastic Model (bh)—This model describes fluids in which
+ 0 - Bingham Plastic Model (bh)—This model describes fluids in which
 the shear stress shear rate ratio is linear
 once a specific shear stress has been exceeded.
 
-Power Law (pl) —The Power Law is used to describe the flow of
+1 - Power Law (pl) —The Power Law is used to describe the flow of
 shear thinning or pseudoplastic drilling fluids.
 
-Herschel-Bulkley Model (hb) —Also called the “modified” power law and
+2 - Herschel-Bulkley Model (hb) —Also called the “modified” power law and
 yield-pseudoplastic model, the Herschel-Bulkley model is used to describe
 the flow of pseudoplastic drilling fluids which require a yield stress
 to initiate flow. Defoult model
         '''
         _list = {}
-        if model == 'hb':
+        if model in {'hb', '1'}:
 
             try:
                 plastic_viscosity = self.rpm_600 - self.rpm_300
@@ -74,7 +74,7 @@ to initiate flow. Defoult model
                 print(e, '\n')
                 return _list
 
-        elif model == 'pl':
+        elif model in {'pl', '2'}:
 
             plastic_viscosity = self.rpm_600 - self.rpm_300
             _list['plastic_viscosity'] = plastic_viscosity
