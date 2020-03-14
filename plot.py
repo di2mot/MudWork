@@ -1,10 +1,22 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
+from matplotlib import ticker
 from collections import OrderedDict
 import math
 
+
 def logplot(data, title = 'Graph'):
+    '''
+    logplot - расчитана на работу с 6 скоростями вискозиметров на подобие Fann 800
+
+    Скорости идут от большего к меньшему
+    :param data: - на вход принимает словарь вида {'скорость':'показатель шкалы'}
+                скорости идут от большего к меньшему (600 -> 3)
+    :param title: - название реологической модели
+    :return: - ничего не возвращает, жадная функция
+    '''
+
     x_data = []
     y_data = []
 
@@ -22,8 +34,8 @@ def logplot(data, title = 'Graph'):
     # x_data = [3, 6, 100, 200, 300, 600]
     # y_data = [47, 48, 62, 72, 81, 100]
 
-    x_lable = [1, 3, 6, 10, 100, 200, 300, 600, 1000]
-    y_lable = [1, 3, 5, 10, 50, 100, 150, 200, 1000]
+    # x_lable = [1, 3, 6, 10, 100, 200, 300, 600, 1000]
+    # y_lable = [1, 3, 5, 10, 50, 100, 150, 200, 1000]
 
     _, ax = plt.subplots(figsize=(9, 5))
 
@@ -48,13 +60,9 @@ def logplot(data, title = 'Graph'):
     ax.set_xlim(1, 1000)
     ax.set_ylim(1, 1000)
 
-    # н знаю почему, но как говорится, без этого не работает
-    plt.xticks(x_lable)
-    plt.yticks(y_lable)
-    #
-    # # axis signatures
-    ax.set_xticklabels(x_lable)
-    ax.set_yticklabels(y_lable)
+    # Преобразует значения подписей шкал из логарифмических, в нелогарфифмические
+    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d"))
+    ax.xaxis.set_major_formatter(ticker.FormatStrFormatter("%d"))
 
 
 
@@ -73,12 +81,17 @@ def logplot(data, title = 'Graph'):
         # отвечает за рисунок
         ax.text(x, y, str(y_data[i]), color='r')
 
-    # Вспомогатльные линии
-    # ax.grid(True, which='major', color='#616161', linestyle='-', alpha=0.5)
+    # Основные линии
     ax.grid(True, which='major', color='black', linestyle='-', alpha=0.5)
+
+    # Вспомогатльные линии
     ax.grid(True, which='minor', color='#616161', linestyle='dashed', alpha=0.5)
 
     plt.show()
 
+if __name__ == '__main__':
+    _fann = {'600': 100, '300': 81, '200': 72,
+             '100': 62, '6': 48, '3': 47}
+    logplot(_fann)
 
 

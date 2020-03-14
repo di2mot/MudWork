@@ -37,19 +37,22 @@ def beautyTable(reo_res):
 def test():
     _fann = {'600': 100, '300': 81, '200': 72,
              '100': 62, '6': 48, '3': 47}
+    tile = {'1': 'Herschel-Bulkley Model', '2': 'Power Law Model',
+            '3': 'Bingham Plastic Model'}
+    # rh = Rheology.Rheology()
+    # reo_res = rh.hbModel(_fann)
     beautyTable(_fann)
-    print('')
+    logplot(_fann, tile['1'])
 
     # отправляем заначения, получаем результат
     # model = 'pl'
     # reo_res = reo(_fann, model)
     # beautyTable(reo_res)
-
-    logplot(_fann)
     stop()
 
 
 def work():
+    rh = Rheology.Rheology()
     _fann = {'600': 0, '300': 0, '200': 0,
              '100': 0, '6': 0, '3': 0}
     tile = {'1':'Herschel-Bulkley Model', '2':'Power Law Model',
@@ -57,7 +60,7 @@ def work():
     for i in _fann:
         while True:
             try:
-                _fann[i] = int(input(f'Введите значение для {i} prm: '))
+                _fann[i] = float(input(f'Введите значение для {i} prm: '))
                 break
             except ValueError:
                 print('\nВводить можно только целые значения\n')
@@ -72,19 +75,28 @@ def work():
 
     while True:
         model = input(text)
-        if model in ('1', '2', '3'):
-            reo_res = reo(_fann, model)
+        if model == '1':
+            reo_res = rh.hbModel(_fann)
             beautyTable(reo_res)
-
-            plot_type = 'log'
             logplot(_fann, tile[model])
             stop()
             break
+
+        elif model == '2':
+            reo_res = rh.powerLowModel(_fann)
+            beautyTable(reo_res)
+            logplot(_fann, tile[model])
+            stop()
+            break
+
+        elif model == '3':
+            pass
 
         elif model == '0':
             main()
         else:
             print('Вы ввели неправильное значение\n')
+
 
 
 def stop():
@@ -98,6 +110,7 @@ def stop():
 
 
 def main():
+
     colorama.init()
     '''
     Здесь находится логика отвечающая за взаимодействие в "программе"
