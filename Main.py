@@ -5,6 +5,7 @@ import Rheology
 from plot import logplot
 import colorama
 from colorama import Fore, Back, Style
+import const
 
 
 
@@ -22,6 +23,8 @@ def reo(_fann, model):
 def beautyTable(reo_res):
     '''
     небольшая функция для красивового выовда значений
+    max_lenth - хранит набиольшую длинну строки
+    Используя ljust() - функция выравнивает поо левому краю
     :param reo_res: dict
     '''
     max_lenth = 0
@@ -29,12 +32,17 @@ def beautyTable(reo_res):
         if len(i) >= max_lenth:
             max_lenth = len(i)
     print()
+
     for res in reo_res:
         print(res.replace('_', ' ').capitalize().ljust(
             max_lenth + 5), f'{reo_res[res]:.4f}')
 
 
 def test():
+    '''
+    Тестовая функция для отработки
+    :return: - ничего
+    '''
     _fann = {'600': 100, '300': 81, '200': 72,
              '100': 62, '6': 48, '3': 47}
     tile = {'1': 'Herschel-Bulkley Model', '2': 'Power Law Model',
@@ -52,11 +60,16 @@ def test():
 
 
 def work():
+    '''
+    _fann - словарь в который вносим покаания шкалы вискозиметра
+    :return: - ничего, функция управля.щая и только отправляет другим функциям
+    '''
     rh = Rheology.Rheology()
     _fann = {'600': 0, '300': 0, '200': 0,
              '100': 0, '6': 0, '3': 0}
-    tile = {'1':'Herschel-Bulkley Model', '2':'Power Law Model',
-                  '3':'Bingham Plastic Model'}
+
+    data = {}
+    # вводим показания шкалы вискозиметра в словарь
     for i in _fann:
         while True:
             try:
@@ -64,30 +77,25 @@ def work():
                 break
             except ValueError:
                 print('\nВводить можно только целые значения\n')
-
+    '''
+    Выбираем реологическую модель по которой будем работа, см const.py
+    '''
     # оотправляем заначения, получаем результат
-    text = '\nВыберите реологическую модель:\n\
-    \t1 - [Herschel-Bulkley Model]  \n\
-    \t2 - [Power Law Model]\n\
-    \t3 - [Bingham Plastic Model (Not work)]\n\
-    \t0 - Для воврата в меню.\n\
-    \tВвод: '
-
     while True:
-        model = input(text)
+        # model - выбираем реологическую модель
+        model = input(const.text)
+
         if model == '1':
             reo_res = rh.hbModel(_fann)
-            beautyTable(reo_res)
-            logplot(_fann, tile[model])
-            stop()
+
             break
+
 
         elif model == '2':
             reo_res = rh.powerLowModel(_fann)
-            beautyTable(reo_res)
-            logplot(_fann, tile[model])
-            stop()
+
             break
+
 
         elif model == '3':
             pass
@@ -96,6 +104,29 @@ def work():
             main()
         else:
             print('Вы ввели неправильное значение\n')
+    # предлагаем расчитать потри давления и т.д.
+    while True:
+        choise = input(const.text_hydr)
+        if choise == '1':
+            for i in const.hydr:
+                while True:
+                    try:
+                        data[i] = float(input(const.hydr[i] + ': '))
+                        break
+                    except:
+                        print('Неверное значение')
+
+            hydro = rh.hydro(data)
+            break
+        elif choise == '0':
+            break
+        else: print(const.errore)
+
+    # beautyTable(reo_res)
+    beautyTable(hydro)
+    logplot(_fann, const.tile[model])
+    return True
+
 
 
 

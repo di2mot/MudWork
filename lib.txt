@@ -1,0 +1,55 @@
+PV - plastic_viscosity- Пластическая вязкость
+YP - yield_point - Динамическая вязкость
+ys - yield_stress - 
+pfi - pipe_flow_index
+pfci - pipe_flow_consistency_index
+afi - annular_flow_index
+afci - annular_flow_consistency_index
+
+Vp - velocity_pipe - скорость бурового р-ра в трубном пространстве
+Va - velocity_annulus - скорость бурового р-ра в кольцевом пространстве
+
+γp - Shear rate pipe - скорость сдивга в трубе
+γa - Shear rate annuls - скорость сдивга в кольцевом пространстве
+
+
+Q - расход бур. р-ра.
+di - внетрунний диаметр буровой каллоны
+dp - наружный диаметр буровой каллоны
+dh - диаметр ствола
+
+Dhydp - Hydraulic diameter Pipe
+Dhyda - Hydraulic diameter Annulus 
+
+_dict_bace = {
+'600': '600 prm',
+'300': '300 prm',
+'200': '200 prm',
+'100': '100 prm',
+'6': '6 prm',
+'3': '3 prm'
+}
+
+_dict_full = {
+'PV':'PV',
+'YP':'YP',
+'ys':'',
+'pf':'',
+'pfci':'',
+'afi':'',
+'afci':'',
+'Vp':'',
+'Va':'',
+'Q':'расход бур. р-ра.',
+'di':'внетрунний диаметр буровой каллоны',
+'dp':'наружный диаметр буровой каллоны',
+'dh':'диаметр ствола',
+'Dhydp':'Hydraulic diameter Pipe',
+'Dhyda':'Hydraulic diameter Annulus',
+'':''
+'':''
+'':''
+'':''
+}
+
+
