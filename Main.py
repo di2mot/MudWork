@@ -122,8 +122,8 @@ def work():
             break
         else: print(const.errore)
 
-    # beautyTable(reo_res)
-    beautyTable(hydro)
+    beautyTable(reo_res)
+
     logplot(_fann, const.tile[model])
     return True
 
