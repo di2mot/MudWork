@@ -93,9 +93,7 @@ def work():
 
         elif model == '2':
             reo_res = rh.powerLowModel(_fann)
-
             break
-
 
         elif model == '3':
             pass
@@ -116,13 +114,13 @@ def work():
                     except:
                         print('Неверное значение')
 
-            hydro = rh.hydro(data)
+            rh.hydro(data)
             break
         elif choise == '0':
-            break
+            return
         else: print(const.errore)
 
-    beautyTable(reo_res)
+    beautyTable(rh._dict)
 
     logplot(_fann, const.tile[model])
     return True
