@@ -175,6 +175,13 @@ to initiate flow. Defoult model
             Re = (data['dh'] * velocity_pipe * data['g']) / mea
             self._dict['Re'] = Re
 
+            '''Вычисляем градиент давления'''
+            pressure_gradient = 2 * (16 / Re) * math.pow(velocity_pipe, 2) * data['g'] / data['dh']
+            self._dict['p/L'] = pressure_gradient
+
+            
+
+
 
 
             '''Проводим расчёт для кольцевого пространства'''
