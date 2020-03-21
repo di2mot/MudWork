@@ -151,25 +151,44 @@ to initiate flow. Defoult model
 
     def hydro(self, data):
         try:
-            '''Расчитываем срднюю скорость'''
-            '''Fluid velocity'''
+            '''Проводим расчёт для трубного пространства'''
+
+            '''Расчитываем срднюю скорость
+            Fluid velocity Pipe/ Скорость потока в трубном пространстве'''
             velocity_pipe = 24.21 * data['Q'] / math.pow(data['di'], 2)
             self._dict['Vp'] = velocity_pipe
-
-            '''Fluid velocity'''
-            velocity_annulus = 24.21 * \
-                data['Q'] / (math.pow(data['dh'], 2) - math.pow(data['dp'], 2))
-            self._dict['Va'] = velocity_annulus
-
-            '''Hydraulic diameter'''
 
             '''Hydraulic diameter Pipe'''
             Dhydp = data['di']
             self._dict['Dhydp'] = Dhydp
 
+            '''Shear rate pipe / расчитываем скорость сдвига у стенок трубы, с-1'''
+            yp = ( (3 * self._dict['pipe_flow_index'] + 1) / (4 * self._dict['pipe_flow_index']) ) \
+                 * (8 * velocity_pipe / data['dh'] )
+            self._dict['yp'] = yp
+
+            '''effective viscosity / Определяем эффективную вязкость'''
+            mea = (self._dict['pfci'] * math.pow(yp, self._dict['pipe_flow_index'])) / yp
+            self._dict['mea'] = mea
+
+            '''Определяем режим течения'''
+            Re = (data['dh'] * velocity_pipe * data['g']) / mea
+            self._dict['Re'] = Re
+
+
+
+            '''Проводим расчёт для кольцевого пространства'''
+            '''Fluid velocity Annulus/ Скорость потока в кольцвом пространстве'''
+            velocity_annulus = 24.21 * \
+                data['Q'] / (math.pow(data['dh'], 2) - math.pow(data['dp'], 2))
+            self._dict['Va'] = velocity_annulus
+
+
             '''Hydraulic diameter Annulus '''
             Dhyda = data['dh'] - data['dp']
             self._dict['Dhyda'] = Dhyda
+
+
 
             return self._dict
 

@@ -86,13 +86,13 @@ def work():
         model = input(const.text)
 
         if model == '1':
-            reo_res = rh.hbModel(_fann)
+            rh.hbModel(_fann)
 
             break
 
 
         elif model == '2':
-            reo_res = rh.powerLowModel(_fann)
+            rh.powerLowModel(_fann)
             break
 
         elif model == '3':
