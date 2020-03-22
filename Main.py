@@ -6,6 +6,7 @@ from plot import logplot
 import colorama
 from colorama import Fore, Back, Style
 import const
+import configparser
 
 
 
@@ -43,14 +44,25 @@ def test():
     Тестовая функция для отработки
     :return: - ничего
     '''
+
+
+
     _fann = {'600': 100, '300': 81, '200': 72,
              '100': 62, '6': 48, '3': 47}
-    tile = {'1': 'Herschel-Bulkley Model', '2': 'Power Law Model',
+
+    text = configparser.ConfigParser()
+    text.read_file('text.ini')
+
+    title = text.get('main', u'text')
+    print(title)
+
+    title = {'1': 'Herschel-Bulkley Model', '2': 'Power Law Model',
             '3': 'Bingham Plastic Model'}
+
     # rh = Rheology.Rheology()
     # reo_res = rh.hbModel(_fann)
     beautyTable(_fann)
-    logplot(_fann, tile['1'])
+    logplot(_fann, title['1'])
 
     # отправляем заначения, получаем результат
     # model = 'pl'
@@ -87,7 +99,6 @@ def work():
 
         if model == '1':
             rh.hbModel(_fann)
-
             break
 
 
