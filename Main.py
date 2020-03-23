@@ -7,7 +7,8 @@ import colorama
 from colorama import Fore, Back, Style
 import const
 import configparser
-
+import os
+import time
 
 
 def reo(_fann, model):
@@ -38,6 +39,24 @@ def beautyTable(reo_res):
         print(res.replace('_', ' ').capitalize().ljust(
             max_lenth + 5), f'{reo_res[res]:.4f}')
 
+def seve(data, filename='default'):
+    '''
+    Функция для записи полученных результатов в файл
+    :return: true
+    '''
+    if filename is 'default':
+        filename = time.strftime("%d-%m-%Y-%H.%M.%S", time.localtime())
+    with open(filename, 'w') as new:
+        file = new.write(data)
+    return True
+
+def load(filename):
+    '''
+    Функция для чтения исходных данных с файла
+    :return: trye
+    '''
+
+    pass
 
 def test():
     '''
