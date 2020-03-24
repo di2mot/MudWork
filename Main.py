@@ -36,19 +36,25 @@ def beautyTable(reo_res):
     print()
 
     for res in reo_res:
-        print(res.replace('_', ' ').capitalize().ljust(
-            max_lenth + 5), f'{reo_res[res]:.4f}')
+        yield res.replace('_', ' ').capitalize().ljust(
+            max_lenth + 5), f'{reo_res[res]:.4f}'
 
 def seve(data, filename='default'):
     '''
     Функция для записи полученных результатов в файл
     :return: true
     '''
-    if filename is 'default':
-        filename = time.strftime("%d-%m-%Y-%H.%M.%S", time.localtime())
-    with open(filename, 'w') as new:
-        file = new.write(data)
-    return True
+    try:
+        if filename is 'default':
+            filename = time.strftime("%d-%m-%Y-%H.%M.%S", time.localtime())
+        with open(filename, 'w') as new:
+            text = beautyTable(data)
+            for i in text:
+                new.write(i)
+        return True
+    except Exception as e:
+        print(f'\nХм, странная ошибка типа: {e}')
+
 
 def load(filename):
     '''
