@@ -86,7 +86,11 @@ def test():
 
     # rh = Rheology.Rheology()
     # reo_res = rh.hbModel(_fann)
-    beautyTable(_fann)
+    test = beautyTable(_fann)
+
+    for i in text:
+        print(*i)
+        
     logplot(_fann, title['1'])
 
     # отправляем заначения, получаем результат
@@ -156,7 +160,9 @@ def work():
             return
         else: print(const.errore)
 
-    beautyTable(rh._dict)
+    text = beautyTable(rh._dict)
+    for i in text:
+        print(*i)
 
     logplot(_fann, const.tile[model])
     return True
