@@ -14,6 +14,9 @@ def logplot(data, title = 'Graph', dict = 'default'):
     :param data: - на вход принимает словарь вида {'скорость':'показатель шкалы'}
                 скорости идут от большего к меньшему (600 -> 3)
     :param title: - название реологической модели
+    :param dict: - 'defoult' or 'castum'
+        'defoult' - стандартный набор скоростей
+        'castum' - пользовательский набор скоростей
     :return: - ничего не возвращает, жадная функция
     '''
 
@@ -26,7 +29,7 @@ def logplot(data, title = 'Graph', dict = 'default'):
         for i in x_data:
             y_data.append(data[str(i)])
 
-    elif dict is 'costum':
+    elif dict is 'castum':
         # сортируем словарь в обратном порядке
         sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
 
