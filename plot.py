@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from collections import OrderedDict
 import math
+import const
 
-
-def logplot(data, title = 'Graph'):
+def logplot(data, title = 'Graph', dict = 'default'):
     '''
     logplot - расчитана на работу с 6 скоростями вискозиметров на подобие Fann 800
 
@@ -20,22 +20,24 @@ def logplot(data, title = 'Graph'):
     x_data = []
     y_data = []
 
-    # сортируем словарь в обратном порядке
-    sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
+    if dict is 'defoult':
+        x_data = const.x_data
 
-    # Создаём кортеж для данных и кортеж для обозначений
-    for x in sorted_dict:
-        x_data.append(int(x))
+        for i in x_data:
+            y_data.append(data[str(i)])
+    elif dict is 'costum':
+        # сортируем словарь в обратном порядке
+        sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
 
-    # Создаём кортеж для данных и кортеж для обозначений
-    for x in sorted_dict:
-        y_data.append(sorted_dict[x])
+        # Создаём кортеж для данных и кортеж для обозначений
+        for x in sorted_dict:
+            x_data.append(int(x))
 
-    # x_data = [3, 6, 100, 200, 300, 600]
-    # y_data = [47, 48, 62, 72, 81, 100]
-
-    # x_lable = [1, 3, 6, 10, 100, 200, 300, 600, 1000]
-    # y_lable = [1, 3, 5, 10, 50, 100, 150, 200, 1000]
+        # Создаём кортеж для данных и кортеж для обозначений
+        for x in sorted_dict:
+            y_data.append(sorted_dict[x])
+    else:
+        print(f'\nНеверный формат входящих данных \n{data}')
 
     _, ax = plt.subplots(figsize=(9, 5))
 
