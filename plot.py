@@ -25,6 +25,7 @@ def logplot(data, title = 'Graph', dict = 'default'):
 
         for i in x_data:
             y_data.append(data[str(i)])
+
     elif dict is 'costum':
         # сортируем словарь в обратном порядке
         sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
