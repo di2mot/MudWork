@@ -8,6 +8,8 @@ _fann = {
     '3': 0
     }
 
+x_data = [3, 6, 100, 200, 300, 600]
+
 tile = {
     '1':'Herschel-Bulkley Model',
     '2':'Power Law Model',
