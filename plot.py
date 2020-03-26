@@ -30,16 +30,34 @@ def logplot(data, title = 'Graph', dict = 'default'):
             y_data.append(data[str(i)])
 
     elif dict is 'castum':
-        # сортируем словарь в обратном порядке
-        sorted_dict = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
+        '''
+        И так, если ты, друг мой, решл(а) пойти по сложному пути и использовать свой набор значений
+        то вот что будет дальше, сначала функция переберёт словарь, найдёт первое значение и последнее
+        значение скорости. Если первая будет больше последней, то отсортирует словарь в обратном порядке
+        что бы н графике скорости росли, с лева, на право.
+        '''
+
+        n, first_el, last_el = 0, 0, 0
+        for i in data:
+            if n == 0:
+                first_el = i
+            elif n == len(data):
+                last_el = i
+            n += 1
+
+        if int(first_el) > int(last_el):
+            # сортируем словарь в обратном порядке
+            data = OrderedDict(sorted(data.items(), key=lambda x: x[1]))
+
 
         # Создаём кортеж для данных и кортеж для обозначений
-        for x in sorted_dict:
+        for x in data:
             x_data.append(int(x))
 
+
         # Создаём кортеж для данных и кортеж для обозначений
-        for x in sorted_dict:
-            y_data.append(sorted_dict[x])
+        for x in data:
+            y_data.append(data[x])
     else:
         print(f'\nНеверный формат входящих данных \n{data}')
 
@@ -51,6 +69,7 @@ def logplot(data, title = 'Graph', dict = 'default'):
             alpha=1,
             marker='o',
             markerfacecolor="#ff22aa")
+
     # задний фон
     rect = ax.patch
     rect.set_facecolor('#bbbabf')
