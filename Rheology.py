@@ -9,13 +9,13 @@ class Rheology:
 
     '''
 
-    def __init__(self):
+    def __init__(self, _coef = 0.48):
         '''
         __coef  - conversion factor
         __coef  - коэфициент перевода единиц
         '''
 
-        self.__coef = 0.48
+        self.__coef = _coef
         self._dict = {}
 
         ''' Type of models:
